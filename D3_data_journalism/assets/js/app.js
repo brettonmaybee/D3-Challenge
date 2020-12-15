@@ -54,23 +54,23 @@ d3.csv("../assets/data/data.csv").then(function(data) {
 
     // Create Circles
     var circlesGroup = chartGroup.selectAll("circle")
-    .data(data)
-    .enter()
-    .append("circle")
-    .attr("cx", d => xLinearScale(d.poverty))
-    .attr("cy", d => yLinearScale(d.healthcare))
-    .attr("r", "10")
-    .attr("fill", 'blue')
-    .attr("opacity", ".5")
+      .data(data)
+      .enter()
+      .append("circle")
+      .attr("cx", d => xLinearScale(d.poverty))
+      .attr("cy", d => yLinearScale(d.healthcare))
+      .attr("r", "10")
+      .attr("fill", 'blue')
+      .attr("opacity", ".5")
     
+   
 
     // Step 6: Initialize tool tip
-    
-    var toolTip = d3.tip()
-      .attr("class", "tooltip")
-      .offset([80, -60])
-      .html(function(data) {
-        return (`${data.state}<br>Poverty: ${data.poverty}<br>healthcare: ${data.healthcare}`);
+        var toolTip = d3.tip()
+        .attr("class", "tooltip")
+        .offset([80, -60])
+        .html(function(d) {
+            return (`${data.state}<br>Poverty: ${data.poverty}<br>healthcare: ${data.healthcare}`);
       });
 
     // Create tooltip in the chart
@@ -78,14 +78,13 @@ d3.csv("../assets/data/data.csv").then(function(data) {
     chartGroup.call(toolTip);
 
     // Create event listeners to display and hide the tooltip
-    circlesGroup.on("click", function(data) {
-      toolTip.show(data, this);
-    })
-    
-    // onmouseout event "click"
-      .on("mouseout", function(data, index) {
-        toolTip.hide(data);
-      });
+        circlesGroup.on("click", function(data) {
+        toolTip.show(data);
+        })
+        // onmouseout event
+        .on("mouseout", function(data, index) {
+            toolTip.hide(data);
+        });
 
     // Create axes labels
     chartGroup.append("text")
