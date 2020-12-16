@@ -45,7 +45,7 @@ d3.csv("../assets/data/data.csv").then(function(data) {
     var bottomAxis = d3.axisBottom(xLinearScale);
     var leftAxis = d3.axisLeft(yLinearScale);
 
-    // Create axis functions
+    // Append axes to chart
     chartGroup.append("g")
       .attr("transform", `translate(0, ${height})`)
       .call(bottomAxis);
@@ -53,39 +53,64 @@ d3.csv("../assets/data/data.csv").then(function(data) {
     chartGroup.append("g")
       .call(leftAxis);
 
-      // Create Circles
-    var circleGroup=chartGroup.selectAll("circle")
+    // Create circleGroup
+    //var circleGroup=chartGroup.selectAll("circle")
+    //  .data(data)
+    //  .enter()
+    //  .append("g")
+      
+    //circleGroup.append("circle") 
+    //  .attr("cx", d => xLinearScale(d.poverty))
+    //  .attr("cy", d => yLinearScale(d.healthcare))
+    //  .attr("r", "15")
+    //  .attr("fill", 'blue')
+    //  .attr("opacity", ".3")
+    
+    
+
+    // Create touchGroup
+    var touchGroup=chartGroup.selectAll("circle")
       .data(data)
       .enter()
       .append("g")
-      
-    circleGroup.append("circle") 
+    
+    // Append circles
+    touchGroup.append("circle") 
       .attr("cx", d => xLinearScale(d.poverty))
       .attr("cy", d => yLinearScale(d.healthcare))
       .attr("r", "15")
       .attr("fill", 'blue')
-      .attr("opacity", ".3")
-           
+      .attr("opacity", ".5")  
+
+    // Add abbreviations
+    touchGroup.append("text")
+      .attr("x", d=>xLinearScale(d.poverty)-12)
+      .attr("y", d=>yLinearScale(d.healthcare)+7)
+      .text(function(data) {
+        return (`${data.abbr}`);
+      });       
+    
     // Initialize tool tip
-    //var toolTip = d3.tip()
-    //.attr("class", "tooltip")
-    //.offset([80, -60])
-    //.html(function(data) {
-    //  return (`${data.state}<br>Poverty: ${data.poverty}<br>healthcare: ${data.healthcare}`);
-    //});
+    var toolTip = d3.tip()
+      .attr("class", "tooltip")
+      .offset([80, -60])
+      .html(function(data) {
+        return (`${data.state}<br>Poverty: ${data.poverty}<br>healthcare: ${data.healthcare}`);
+      });
 
     // Create tooltip in the chart
-    //chartGroup.call(toolTip);
-
+    chartGroup.call(toolTip);
+    
     // Create event listeners to display and hide the tooltip
-     // circlesGroup.on("click", function(data) {
-     // toolTip.show(data, this);
-    //})
-      // onmouseout event
-      //.on("mouseout", function(data, index) {
-      //  toolTip.hide(data);
-      //});
-
+    touchGroup.on("click", function(data) {
+      toolTip.show(data, this);
+    })
+    
+    // Onmouseout event
+      .on("mouseout", function(data, index) {
+        toolTip.hide(data);
+      });
+    
     // Create axes labels
     chartGroup.append("text")
       .attr("transform", "rotate(-90)")
@@ -99,17 +124,6 @@ d3.csv("../assets/data/data.csv").then(function(data) {
       .attr("class", "axisText")
       .text("In Poverty (%)");
 
-    // Create Abbreviations
-    circleGroup.append("text")
-      //.data(data)
-      //.enter()
-      //.append("text")
-      .attr("x", d=>xLinearScale(d.poverty)-12)
-      .attr("y", d=>yLinearScale(d.healthcare)+7)
-      .text(function(data) {
-        return (`${data.abbr}`);
-      });     
-
   }).catch(function(error) {
     console.log(error);
-  });
+});

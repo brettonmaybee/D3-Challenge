@@ -64,12 +64,12 @@ d3.csv("../assets/data/data.csv").then(function(data) {
       .attr("fill", 'blue')
       .attr("opacity", ".3")
            
-    // Initialize tool tip
-    //var toolTip = d3.tip()
-    //.attr("class", "tooltip")
-    //.offset([80, -60])
-    //.html(function(data) {
-    //  return (`${data.state}<br>Poverty: ${data.poverty}<br>healthcare: ${data.healthcare}`);
+     Initialize tool tip
+    var toolTip = d3.tip()
+    .attr("class", "tooltip")
+    .offset([80, -60])
+    .html(function(data) {
+      return (`${data.state}<br>Poverty: ${data.poverty}<br>healthcare: ${data.healthcare}`);
     //});
 
     // Create tooltip in the chart
