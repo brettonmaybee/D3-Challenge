@@ -53,21 +53,6 @@ d3.csv("../assets/data/data.csv").then(function(data) {
     chartGroup.append("g")
       .call(leftAxis);
 
-    // Create circleGroup
-    //var circleGroup=chartGroup.selectAll("circle")
-    //  .data(data)
-    //  .enter()
-    //  .append("g")
-      
-    //circleGroup.append("circle") 
-    //  .attr("cx", d => xLinearScale(d.poverty))
-    //  .attr("cy", d => yLinearScale(d.healthcare))
-    //  .attr("r", "15")
-    //  .attr("fill", 'blue')
-    //  .attr("opacity", ".3")
-    
-    
-
     // Create touchGroup
     var touchGroup=chartGroup.selectAll("circle")
       .data(data)
