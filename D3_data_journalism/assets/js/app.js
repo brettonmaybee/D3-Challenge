@@ -70,7 +70,8 @@ d3.csv("../assets/data/data.csv").then(function(data) {
     .append("text")
     .attr("x", d=>xLinearScale(d.poverty))
     .attr("y", d=>yLinearScale(d.healthcare))
-    .html(function(data) {
+    //.offset([-60, 80])
+    .text(function(data) {
       return (`${data.abbr}`);
     });
 
