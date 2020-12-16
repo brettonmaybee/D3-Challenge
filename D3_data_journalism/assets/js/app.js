@@ -62,17 +62,16 @@ d3.csv("../assets/data/data.csv").then(function(data) {
     .attr("r", "10")
     .attr("fill", 'blue')
     .attr("opacity", ".5")
-    .attr("text", data.abbr)
-
+    
     // Create Abbreviations
     var textGroup=chartGroup.selectAll("text")
     .data(data)
     .enter()
     .append("text")
-    .attr("x", xLinearScale(d.poverty))
-    .attr("y", yLinearScale(d.healthcare))
+    .attr("x", d=>xLinearScale(d.poverty))
+    .attr("y", d=>yLinearScale(d.healthcare))
     .html(function(data) {
-      return (`${data.attr}`);
+      return (`${data.abbr}`);
     });
 
     // Initialize tool tip
