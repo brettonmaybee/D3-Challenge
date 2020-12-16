@@ -54,12 +54,10 @@ d3.csv("../assets/data/data.csv").then(function(data) {
       .call(leftAxis);
 
       // Create Circles
-    var circleGroup=chartGroup.selectAll("circle")
+    var circlesGroup=chartGroup.selectAll("circle")
       .data(data)
       .enter()
-      .append("g")
-      
-    circleGroup.append("circle") 
+      .append("circle")
       .attr("cx", d => xLinearScale(d.poverty))
       .attr("cy", d => yLinearScale(d.healthcare))
       .attr("r", "15")
@@ -99,11 +97,11 @@ d3.csv("../assets/data/data.csv").then(function(data) {
       .attr("class", "axisText")
       .text("In Poverty (%)");
 
-    // Create Abbreviations
-    circleGroup.append("text")
-      //.data(data)
-      //.enter()
-      //.append("text")
+      // Create Abbreviations
+    var textGroup=chartGroup.selectAll("text")
+      .data(data)
+      .enter()
+      .append("text")
       .attr("x", d=>xLinearScale(d.poverty)-12)
       .attr("y", d=>yLinearScale(d.healthcare)+7)
       .text(function(data) {
